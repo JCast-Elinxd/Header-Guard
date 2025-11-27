@@ -1,0 +1,53 @@
+{
+  "manifest_version": 3,
+  "name": "HeaderGuard",
+  "version": "1.3.0",
+  "description": "Detector de correos maliciosos por encabezados. Auto-análisis en Gmail, popup con score y señales.",
+  "permissions": [
+    "storage"
+  ],
+  "host_permissions": [
+    "https://mail.google.com/*",
+    "https://dns.google/*", 
+    "https://cloudflare-dns.com/*",
+    "http://localhost:8000/*",
+    "http://37.60.255.207:8000/*"
+  ],
+  "action": {
+    "default_title": "HeaderGuard",
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://mail.google.com/*"
+      ],
+      "js": [
+        "gmail_original_cs.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "report.html",
+        "report.js",
+        "styles.css"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
+  ]
+}
